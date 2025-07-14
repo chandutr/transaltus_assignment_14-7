@@ -1,0 +1,60 @@
+AI-Based Product Review Categorisation
+
+1) Main Objective: The objective feature of the feature is to automatically categorize product reviews and to predict the category based on Delivery issue, product quality and customer service. It is important for e-commerce platform to distinguish the product reviews based on customers Delivery issue, product quality and customer service, and also make decision to solve the issue and to help the operations team to prioritise improvements.
+
+2) The input data is review_text and category columns. The output will be the new category column for a new review input which automatically categorises product reviews as 3 categories such as Delivery Issue, Product Quality and Customer Service. Steps include: data collection-importing data from a csv file, data preprocessing- like cleaning the data if there are any null values, model training-split the dataset into training and testing, model prediction-predicting the model yes or no 
+Workflow:
+Steps:
+1: Data Collection.
+2: Data preprocessing and Cleaning.
+3: Exploratory Data Analysis.
+4: Feature Engineering and Selection.
+5: Split the dataset into input features and target column.
+6: Encoding-if it's necessary.
+7: Scaling the input feature data.
+8: Divide into train dataset and test dataset.
+9: Apply ML algo into training data.
+10: Model Evaluation.
+11: Model Prediction.
+
+3) import pandas as pd
+   df=pd.read_csv(r'file.csv')
+   df.head()
+
+   df.shape
+
+   df.isnull().sum()
+
+   from nltk.corpus import stopwords #for lowercasing and removing stopwords
+   def remove_stopwords(text):
+  	removed=[]
+	sw=stopwords.words('english')
+  	words=nltk.word_tokenize(text)
+  	for word in words:
+    		if word.lower() not in sw:
+      		  removed.append(word)
+  		  return removed
+
+   x = data[['review_text', 'category']] #x as input features
+   y = pd.DataFrame([new_review_input]) #y as target column to predict new review input
+
+   from sklearn.model_selection import train_test_split
+   x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0, test_size=0.25)
+
+   from sklearn.naive_bayes import MultinomialNB
+   nb_model = MultinomialNB()
+   nb_model.fit(x_train, y_train)
+
+   from sklearn.svm import SVC
+   model = SVC(kernel="poly")
+   model.fit(x_train,y_train)
+
+   prediction=nb_model.predict(x_test) #for multinomial nb
+   prediction
+
+   prediction2=model.predict(x_test) #for svm
+   prediction2
+
+4) Challenges in using such a model in prediction is difficult to use text and category data that can't be directly used in ML models without encoding.
+   Improvements: One-Hot Encoding can be used for multiple categories and we should convert text to numerical features.
+   
